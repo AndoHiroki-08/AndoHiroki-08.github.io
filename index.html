@@ -1,40 +1,1152 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>あなたのＨＰタイトル</title>
-<meta name="keywords" content="ページのキーワードA,B,C">
-<meta name="description" content="ページの説明">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貸出管理ツール ワイヤーフレーム (v6)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Icons (Heroicons) -->
+    <script type_="" module src="https://cdn.jsdelivr.net/npm/heroicons@2.1.3/24/outline/index.js"></script>
+    <script type_="" module src="https://cdn.jsdelivr.net/npm/heroicons@2.1.3/24/solid/index.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc; /* Tailwind gray-50 */
+        }
+        .data-grid-header { background-color: #f1f5f9; }
+        .data-grid-row:nth-child(even) { background-color: #fdfdfe; }
+        .data-grid-row:nth-child(odd) { background-color: #f8fafc; }
+        .data-grid-row:hover { background-color: #eef2ff; }
+        .form-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); padding: 2rem; }
+        .form-input { width: 100%; border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.75rem 1rem; }
+        .form-input:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 2px #c7d2fe; }
+        .form-input-search { width: 100%; border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.5rem 1rem; padding-left: 2.5rem; }
+        .form-label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151; }
+        .btn { padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-weight: 600; transition: background-color 0.2s; cursor: pointer; text-align: center; display: inline-block; }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
+        .btn-primary { background-color: #4f46e5; color: white; }
+        .btn-primary:hover { background-color: #4338ca; }
+        .btn-danger { background-color: #dc2626; color: white; }
+        .btn-danger:hover { background-color: #b91c1c; }
+        .btn-secondary { background-color: #e5e7eb; color: #374151; }
+        .btn-secondary:hover { background-color: #d1d5db; }
+        .nav-link { padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500; color: #4b5563; }
+        .nav-link:hover { background-color: #eef2ff; color: #4f46e5; }
+        .nav-link-active { background-color: #e0e7ff; color: #4f46e5; font-weight: 600; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-green { background-color: #dcfce7; color: #166534; }
+        .badge-red { background-color: #fee2e2; color: #991b1b; }
+        .badge-yellow { background-color: #fef9c3; color: #854d0e; }
+        .badge-gray { background-color: #f3f4f6; color: #4b5563; }
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            color: #6b7280; /* gray-500 */
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+        }
+        .filter-tab:hover {
+            color: #374151; /* gray-700 */
+            border-bottom-color: #d1d5db; /* gray-300 */
+        }
+        .filter-tab.active {
+            color: #4f46e5; /* indigo-600 */
+            font-weight: 600;
+            border-bottom-color: #4f46e5; /* indigo-600 */
+        }
+    </style>
 </head>
-<body>
-<div id="outer">
-<div id="inner">
-<header><h1>あなたのＨＰタイトル</h1>
-</header>
-<main>
-<h2>記事ページ見出し・大</h2>
-<p>文章あれこれ</p>
-<h3>記事ページ見出し・中</h3>
-<p>文章あれこれ</p>
-<h4>記事ページ見出し・小</h4>
-<p>文章あれこれ</p>
-</main>
-<aside>
-<div class="title">menu</div>
-<ul>
-<li>記事ページへのリンク</li>
-<li>記事ページへのリンク</li>
-</ul>
-</aside>
-<footer>
-<div id="pagetop">
-<a href="#outer"><svg viewBox="0 0 24 24" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
-<path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8z" fill="#999"/></svg></a>
-</div>
-© 2010 あなたのホームページ
-</footer>
-</div></div>
+<body class="text-gray-900">
+
+    <!-- ページ切り替えナビゲーション (ワイヤーフレーム用) -->
+    <div class="bg-gray-800 text-white p-4 sticky top-0 z-50">
+        <label for="page-select" class="mr-2 font-bold">ワイヤーフレーム ページ切り替え:</label>
+        <select id="page-select" class="bg-gray-700 border border-gray-600 rounded-md p-2">
+            <option value="home">0. ホーム</option>
+            <option value="login">1. ログイン</option>
+            <option value="menu">2. メニュー</option>
+            <option value="machines-list">3. 機器一覧 (マスタ管理)</option>
+            <option value="machines-new">4. 機器新規登録</option>
+            <option value="machines-detail">5. 機器詳細・編集</option>
+            <option value="rentals-list">6. 貸出管理 (全機器一覧)</option>
+            <option value="rentals-detail-available">7. 貸出実行 (未貸出)</option>
+            <option value="rentals-detail-rented">8. 返却処理 (貸出中)</option>
+            <option value="rentals-history">9. 貸出履歴 (すべて)</option>
+            <option value="users-list">10. ユーザー一覧</option>
+            <option value="users-new">11. ユーザー新規登録</option>
+            <option value="users-detail">12. ユーザー詳細・編集</option>
+        </select>
+    </div>
+
+    <!-- 共通ヘッダー (パブリック用) -->
+    <header id="public-header" class="bg-white shadow-sm sticky top-0 z-40 hidden">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#home" data-page-nav="home" class="flex-shrink-0 flex items-center">
+                    <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5l.415-.207a.75.75 0 011.085.67V10.5m0 0h6m-6 0a.75.75 0 001.085.67l.415-.207M8.25 10.5V7.5m0 3V12m0-1.5m0 1.5A.75.75 0 017.5 9.75l-.415.207a.75.75 0 00-1.085-.67V7.5m-1.5 3h.008v.008H6V10.5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.75h16.5v.008H3.75v-.008zM3.75 14.25h16.5v.008H3.75v-.008zM3.75 18.75h16.5v.008H3.75v-.008z" />
+                    </svg>
+                    <span class="font-bold text-xl ml-2 text-gray-800">貸出管理ツール</span>
+                </a>
+                <!-- Login Button -->
+                <div>
+                    <a href="#login" data-page-nav="login" class="btn btn-primary">ログイン</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 共通ヘッダー (メイン機能用) -->
+    <header id="main-header" class="bg-white shadow-sm sticky top-0 z-40 hidden">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5l.415-.207a.75.75 0 011.085.67V10.5m0 0h6m-6 0a.75.75 0 001.085.67l.415-.207M8.25 10.5V7.5m0 3V12m0-1.5m0 1.5A.75.75 0 017.5 9.75l-.415.207a.75.75 0 00-1.085-.67V7.5m-1.5 3h.008v.008H6V10.5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.75h16.5v.008H3.75v-.008zM3.75 14.25h16.5v.008H3.75v-.008zM3.75 18.75h16.5v.008H3.75v-.008z" />
+                    </svg>
+                    <span class="font-bold text-xl ml-2 text-gray-800">貸出管理ツール</span>
+                </div>
+                <!-- Nav Links (Desktop) -->
+                <div class="hidden md:flex md:space-x-2">
+                    <a href="#menu" data-page-nav="menu" class="nav-link">メニュー</a>
+                    <a href="#machines-list" data-page-nav="machines-list" class="nav-link">機器管理</a>
+                    <a href="#rentals-list" data-page-nav="rentals-list" class="nav-link">貸出管理</a>
+                    <a href="#users-list" data-page-nav="users-list" class="nav-link">ユーザー管理</a>
+                </div>
+                <!-- User Menu (Desktop) -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <span class="text-sm text-gray-600">ようこそ、山田太郎さん (S002)</span>
+                    <img class="h-9 w-9 rounded-full" src="https://placehold.co/100x100/e0e7ff/4f46e5?text=U" alt="User Avatar">
+                    <a href="#login" data-page-nav="login" class="nav-link text-sm">ログアウト</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="p-2 rounded-md text-gray-600 hover:bg-gray-100">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 0. ホーム (ランディング) ページ -->
+    <div id="page-home" class="page active">
+        <div class="bg-white">
+            <div class="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                    <span class="block">機器の貸出管理を、</span>
+                    <span class="block text-indigo-600">もっとスムーズに。</span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-xl text-gray-600">
+                    「貸出管理ツール」は、社内のPC、スマートフォン、その他備品の管理と貸出・返却プロセスをデジタル化し、業務効率を劇的に改善します。
+                </p>
+                <div class="mt-10">
+                    <a href="#login" data-page-nav="login" class="btn btn-primary text-lg">
+                        ログインして利用開始
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">主な機能</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="form-card text-center">
+                        <svg class="h-12 w-12 text-indigo-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.375 1.5A3 3 0 0 1 7.5 21c-1.657 0-3-1.343-3-3V18h1.125m10.125 0h.008v.008h-.008V18m-1.5.75V17.25m3 3V18m0 3a3 3 0 0 0-3-3V17.25a3 3 0 0 0 3 3m-9 3h6m-6 0a3 3 0 0 0-3-3V17.25a3 3 0 0 0 3 3m0 0V18m3 3h.008v.008h-.008V21m0-3V18m0 3v.008h.008V21m0 0v-1.5m-6.375-3.375a3 3 0 0 0-3-3V17.25a3 3 0 0 0 3 3m-9 0V18m0 3h.008v.008h-.008V21m0 0v-1.5m3-3.375a3 3 0 0 0-3-3V17.25a3 3 0 0 0 3 3m9 0V18m0 3h.008v.008h-.008V21M7.5 7.5h.008v.008H7.5V7.5Zm3 0h.008v.008h-.008V7.5Zm3 0h.008v.008h-.008V7.5Zm3 0h.008v.008h-.008V7.5Zm-9 3h.008v.008H7.5v-.008Zm3 0h.008v.008h-.008v-.008Zm3 0h.008v.008h-.008v-.008Zm3 0h.008v.008h-.008v-.008Zm-9 3h.008v.008H7.5v-.008Zm3 0h.008v.008h-.008v-.008Zm3 0h.008v.008h-.008v-.008Zm3 0h.008v.008h-.008v-.008Z" /></svg>
+                        <h3 class="text-xl font-semibold mb-2">簡単な機器管理</h3>
+                        <p class="text-gray-600">PC、スマホ、その他備品を簡単な操作で登録・更新。ステータス（利用可能、貸出中、故障）も一目でわかります。</p>
+                    </div>
+                    <div class="form-card text-center">
+                         <svg class="h-12 w-12 text-indigo-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+                        <h3 class="text-xl font-semibold mb-2">迅速な貸出・返却</h3>
+                        <p class="text-gray-600">「誰が」「何を」「いつまで」借りているかを明確に管理。簡単なフォーム操作で、貸出と返却の処理が完了します。</p>
+                    </div>
+                    <div class="form-card text-center">
+                        <svg class="h-12 w-12 text-indigo-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.017 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0v-1.1a1.125 1.125 0 0 1 1.125-1.125h.003l.001.003.001.003h.001a1.125 1.125 0 0 1 1.125 1.125v1.1a24.255 24.255 0 0 1-5.714 0Z" /></svg>
+                        <h3 class="text-xl font-semibold mb-2">リマインダー機能</h3>
+                        <p class="text-gray-600">ダッシュボードで返却期限が近い機器を自動でお知らせ。返却忘れを防ぎ、資産の効率的な運用をサポートします。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- メインコンテンツ (アプリ本体) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- 1. ログインページ (★ 必須マーク変更) -->
+        <div id="page-login" class="page">
+            <div class="max-w-md w-full mx-auto">
+                <h2 class="mt-4 text-center text-3xl font-bold text-gray-900 mb-8">ログイン</h2>
+                <div class="form-card">
+                    <form class="space-y-6">
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label for="employee-no" class="form-label">社員番号 <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input id="employee-no" name="employee-no" type="text" autocomplete="username" required class="form-input" value="S002">
+                        </div>
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label for="password" class="form-label">パスワード <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input id="password" name="password" type="password" autocomplete="current-password" required class="form-input" value="password">
+                        </div>
+                        <div>
+                            <a href="#menu" data-page-nav="menu" class="btn btn-primary w-full">ログイン</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. メニュー (ダッシュボード) -->
+        <div id="page-menu" class="page">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">メニュー</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- ナビゲーションカード -->
+                <div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <a href="#machines-list" data-page-nav="machines-list" class="form-card text-center hover:shadow-xl transition-shadow cursor-pointer">
+                        <h3 class="text-xl font-semibold text-indigo-600">機器管理</h3>
+                        <p class="text-gray-600 mt-2">PCや備品などの一覧、登録、編集</p>
+                    </a>
+                    <a href="#rentals-list" data-page-nav="rentals-list" class="form-card text-center hover:shadow-xl transition-shadow cursor-pointer">
+                        <h3 class="text-xl font-semibold text-indigo-600">貸出管理</h3>
+                        <p class="text-gray-600 mt-2">機器の貸出、返却、履歴の管理</p>
+                    </a>
+                    <a href="#users-list" data-page-nav="users-list" class="form-card text-center hover:shadow-xl transition-shadow cursor-pointer">
+                        <h3 class="text-xl font-semibold text-indigo-600">ユーザー管理</h3>
+                        <p class="text-gray-600 mt-2">利用ユーザーの一覧、登録、編集</p>
+                    </a>
+                </div>
+
+                <!-- リマインダー -->
+                <div class="form-card lg:col-span-3">
+                    <h2 class="text-xl font-semibold mb-4">リマインダー</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 期限切れ -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-red-600 mb-3">返却期限切れ (2件)</h3>
+                            <ul class="space-y-3">
+                                <li class="p-3 bg-red-50 border border-red-200 rounded-lg">
+                                    <span class="font-medium">PC-001 (DELL XPS)</span>
+                                    <span class="text-red-700 font-bold ml-2">(5日超過)</span>
+                                    <p class="text-sm text-gray-600">貸出先: 鈴木一郎 (2025/11/01 返却日)</p>
+                                </li>
+                                <li class="p-3 bg-red-50 border border-red-200 rounded-lg">
+                                    <span class="font-medium">M-002 (iPhone 15)</span>
+                                    <span class="text-red-700 font-bold ml-2">(1日超過)</span>
+                                    <p class="text-sm text-gray-600">貸出先: 高橋純 (2025/11/05 返却日)</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 期限間近 -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-yellow-600 mb-3">返却期限 間近 (1件)</h3>
+                            <ul class="space-y-3">
+                                <li class="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                    <span class="font-medium">PC-003 (MacBook Pro)</span>
+                                    <span class="text-yellow-700 font-bold ml-2">(残り3日)</span>
+                                    <p class="text-sm text-gray-600">貸出先: 佐藤健 (2025/11/09 返却日)</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 自分が借りている機器 -->
+                <div class="form-card lg:col-span-3">
+                    <h2 class="text-xl font-semibold mb-4">あなたが現在借りている機器</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead class="data-grid-header">
+                                <tr>
+                                    <th class="p-3 text-left text-sm font-semibold text-gray-600">資産番号</th>
+                                    <th class="p-3 text-left text-sm font-semibold text-gray-600">メーカー</th>
+                                    <th class="p-3 text-left text-sm font-semibold text-gray-600">返却予定日</th>
+                                    <th class="p-3 text-left text-sm font-semibold text-gray-600">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="data-grid-row">
+                                    <td class="p-3 text-sm">PC-002</td>
+                                    <td class="p-3 text-sm">HP Spectre</td>
+                                    <td class="p-3 text-sm">2025-11-10</td>
+                                    <td class="p-3 text-sm">
+                                        <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細/返却</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 機器一覧 (マスタ管理) -->
+        <div id="page-machines-list" class="page">
+            <div class="flex justify-between items-center mb-6 gap-4 flex-wrap">
+                <h1 class="text-3xl font-bold text-gray-900">機器一覧 (マスタ管理)</h1>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                    </div>
+                    <input type="search" placeholder="資産番号で検索" class="form-input-search">
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-lg font-semibold text-gray-700">貸出可能台数: <span class="text-indigo-600">2</span>件</span>
+                    <a href="#machines-new" data-page-nav="machines-new" class="btn btn-primary">
+                        新規登録
+                    </a>
+                </div>
+            </div>
+            <div class="form-card p-0 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead class="data-grid-header">
+                            <tr>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">資産番号</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">メーカー</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">OS</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">メモリ</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">容量</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">グラボ</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">故障</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">貸出状況</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-001</td>
+                                <td class="p-4 text-sm">DELL</td>
+                                <td class="p-4 text-sm">Windows 11</td>
+                                <td class="p-4 text-sm">16GB</td>
+                                <td class="p-4 text-sm">512GB</td>
+                                <td class="p-4 text-sm">有</td>
+                                <td class="p-4 text-sm"><span class="badge badge-gray">無</span></td>
+                                <td class="p-4 text-sm"><span class="badge badge-red">貸出中</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#machines-detail" data-page-nav="machines-detail" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-002</td>
+                                <td class="p-4 text-sm">HP</td>
+                                <td class="p-4 text-sm">Windows 11</td>
+                                <td class="p-4 text-sm">16GB</td>
+                                <td class="p-4 text-sm">1TB</td>
+                                <td class="p-4 text-sm">無</td>
+                                <td class="p-4 text-sm"><span class="badge badge-gray">無</span></td>
+                                <td class="p-4 text-sm"><span class="badge badge-red">貸出中</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#machines-detail" data-page-nav="machines-detail" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-003</td>
+                                <td class="p-4 text-sm">Apple</td>
+                                <td class="p-4 text-sm">macOS</td>
+                                <td class="p-4 text-sm">16GB</td>
+                                <td class="p-4 text-sm">512GB</td>
+                                <td class="p-4 text-sm">無</td>
+                                <td class="p-4 text-sm"><span class="badge badge-gray">無</span></td>
+                                <td class="p-4 text-sm"><span class="badge badge-green">利用可能</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#machines-detail" data-page-nav="machines-detail" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 機器新規登録 (★ 必須マーク変更) -->
+        <div id="page-machines-new" class="page">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">機器新規登録</h1>
+            <div class="form-card max-w-3xl mx-auto">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label class="form-label">メーカー <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input type="text" class="form-input" placeholder="例: Lenovo">
+                        </div>
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label class="form-label">OS <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input type="text" class="form-input" placeholder="例: Windows 11">
+                        </div>
+                    </div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">メモリ</label>
+                            <input type="text" class="form-input" placeholder="例: 16GB">
+                        </div>
+                        <div>
+                            <label class="form-label">容量</label>
+                            <input type="text" class="form-input" placeholder="例: 512GB">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label">保管場所</label>
+                        <input type="text" class="form-input" placeholder="例: 本社 3F倉庫">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">リース開始日</label>
+                            <input type="date" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">リース期限日</label>
+                            <input type="date" class="form-input">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label">棚卸日</label>
+                        <input type="date" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">備考</label>
+                        <textarea class="form-input" rows="3"></textarea>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="gpu-check" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                        <label for="gpu-check" class="ml-2 block text-sm text-gray-800">グラフィックボード(GPU)搭載</label>
+                    </div>
+                    <div class="flex justify-end space-x-4 pt-4">
+                        <a href="#machines-list" data-page-nav="machines-list" class="btn btn-secondary">キャンセル</a>
+                        <button type="button" class="btn btn-primary" onclick="alert('【確認ダイアログ】\n「この内容で登録しますか？」')">登録</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 5. 機器詳細・編集 (★ 必須マーク変更) -->
+        <div id="page-machines-detail" class="page">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">機器詳細 (PC-001)</h1>
+             <div class="form-card max-w-3xl mx-auto">
+                <form class="space-y-6">
+                    <!-- 静的表示 -->
+                    <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-3 text-gray-800">基本情報</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">資産番号</p>
+                                <p class="text-lg font-semibold text-gray-900">PC-001</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">貸出状況</p>
+                                <p class="text-lg font-semibold"><span class="badge badge-red">貸出中 (鈴木一郎)</span></p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">登録日</p>
+                                <p class="text-lg font-semibold text-gray-900">2023/10/01</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">更新日</p>
+                                <p class="text-lg font-semibold text-gray-900">2023/10/05</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 編集可能フォーム -->
+                    <h3 class="text-lg font-semibold text-gray-800 border-t pt-6">編集可能項目</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label class="form-label">メーカー <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input type="text" class="form-input" value="DELL">
+                        </div>
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label class="form-label">OS <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input type="text" class="form-input" value="Windows 11">
+                        </div>
+                    </div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">メモリ</label>
+                            <input type="text" class="form-input" value="16GB">
+                        </div>
+                        <div>
+                            <label class="form-label">容量</label>
+                            <input type="text" class="form-input" value="512GB">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label">保管場所</label>
+                        <input type="text" class="form-input" value="本社 3F倉庫">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">リース開始日</label>
+                            <input type="date" class="form-input" value="2023-11-01">
+                        </div>
+                        <div>
+                            <label class="form-label">リース期限日</label>
+                            <input type="date" class="form-input" value="2026-10-31">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label">棚卸日</label>
+                        <input type="date" class="form-input" value="2025-10-01">
+                    </div>
+                    <div>
+                        <label class="form-label">備考</label>
+                        <textarea class="form-input" rows="3"></textarea>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <div class="flex items-center">
+                            <input id="gpu-check-edit" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                            <label for="gpu-check-edit" class="ml-2 block text-sm text-gray-800">グラフィックボード(GPU)搭載</label>
+                        </div>
+                         <div class="flex items-center">
+                            <input id="broken-check-edit" type="checkbox" class="h-4 w-4 text-red-600 border-gray-300 rounded">
+                            <label for="broken-check-edit" class="ml-2 block text-sm text-gray-800">故障 (broken_flag)</label>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-4">
+                        <button type="button" class="btn btn-danger" onclick="alert('【確認ダイアログ】\n「この機器(PC-001)を削除しますか？」')">削除</button>
+                        <div class="space-x-4">
+                            <a href="#machines-list" data-page-nav="machines-list" class="btn btn-secondary">キャンセル</a>
+                            <button type="button" class="btn btn-primary" onclick="alert('【確認ダイアログ】\n「この内容で更新しますか？」')">更新</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 6. 貸出一覧 (全機器一覧) -->
+        <div id="page-rentals-list" class="page">
+            <div class="flex justify-between items-center mb-6 gap-4 flex-wrap">
+                <h1 class="text-3xl font-bold text-gray-900">貸出管理 (全機器一覧)</h1>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                    </div>
+                    <input type="search" placeholder="資産番号または氏名で検索" class="form-input-search">
+                </div>
+                <div class="space-x-4">
+                     <a href="#rentals-history" data-page-nav="rentals-history" class="btn btn-secondary">
+                        全履歴表示
+                    </a>
+                </div>
+            </div>
+             
+            <div class="border-b border-gray-200 mb-4">
+                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                    <a href="#" class="filter-tab active">すべて (4)</a>
+                    <a href="#" class="filter-tab">利用可能 (1)</a>
+                    <a href="#" class="filter-tab">貸出中 (3)</a>
+                    <a href="#" class="filter-tab">期限切れ (2)</a>
+                    <a href="#" class="filter-tab">期限間近 (1)</a>
+                </nav>
+            </div>
+
+             <div class="form-card p-0 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead class="data-grid-header">
+                            <tr>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">資産番号</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">メーカー / OS</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">貸出状況</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">貸出主</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">返却期限</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-001</td>
+                                <td class="p-4 text-sm">DELL / Win 11</td>
+                                <td class="p-4 text-sm"><span class="badge badge-red">貸出中</span></td>
+                                <td class="p-4 text-sm">鈴木一郎</td>
+                                <td class="p-4 text-sm"><span class="font-bold text-red-600">2025/11/06</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-indigo-600 hover:text-indigo-800 font-medium">返却/詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-002</td>
+                                <td class="p-4 text-sm">HP / Win 11</td>
+                                <td class="p-4 text-sm"><span class="badge badge-red">貸出中</span></td>
+                                <td class="p-4 text-sm">山田太郎</td>
+                                <td class="p-4 text-sm">2025/11/10</td>
+                                <td class="p-4 text-sm">
+                                    <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-indigo-600 hover:text-indigo-800 font-medium">返却/詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-003</td>
+                                <td class="p-4 text-sm">Apple / macOS</td>
+                                <td class="p-4 text-sm"><span class="badge badge-green">利用可能</span></td>
+                                <td class="p-4 text-sm">---</td>
+                                <td class="p-4 text-sm">---</td>
+                                <td class="p-4 text-sm">
+                                    <a href="#rentals-detail-available" data-page-nav="rentals-detail-available" class="text-indigo-600 hover:text-indigo-800 font-medium">貸出/詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-004</td>
+                                <td class="p-4 text-sm">Lenovo / Win 11</td>
+                                <td class="p-4 text-sm"><span class="badge badge-red">貸出中</span></td>
+                                <td class="p-4 text-sm">佐藤健</td>
+                                <td class="p-4 text-sm"><span class="font-bold text-yellow-600">2025/11/09</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-indigo-600 hover:text-indigo-800 font-medium">返却/詳細</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. 貸出実行ページ (★ 必須マーク変更) -->
+        <div id="page-rentals-detail-available" class="page">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">貸出実行 (PC-003)</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 貸出フォーム -->
+                <div class="lg:col-span-2">
+                    <div class="form-card">
+                        <form class="space-y-6">
+                            <!-- ★ 一般ユーザーの場合 (想定) -->
+                            <div class="hidden">
+                                <!-- ★ 必須マーク変更 -->
+                                <label class="form-label">貸出先ユーザー <span class="text-red-500 font-bold ml-1">*</span></label>
+                                <input type="text" class="form-input bg-gray-100" value="山田太郎 (S002)" readonly>
+                                <p class="text-sm text-gray-500 mt-1">一般ユーザーは自分自身にのみ貸出可能です。</p>
+                            </div>
+                            
+                            <!-- ★ 管理者の場合 (想定) -->
+                            <div>
+                                <!-- ★ 必須マーク変更 -->
+                                <label class="form-label">貸出先ユーザー <span class="text-red-500 font-bold ml-1">*</span></label>
+                                <div class="relative">
+                                    <input type="text" class="form-input" placeholder="クリックしてユーザーを選択" readonly value="鈴木一郎 (S001)">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button type="button" class="text-gray-400 hover:text-gray-600" onclick="alert('【ポップアップ】\n「ユーザー一覧（検索付）」を表示し、選択したユーザーを上の入力欄にセットします。')">
+                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <!-- ★ 必須マーク変更 -->
+                                <label class="form-label">返却予定日 <span class="text-red-500 font-bold ml-1">*</span></label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">備考</label>
+                                <textarea class="form-input" rows="3"></textarea>
+                            </div>
+                            <div class="flex justify-end space-x-4 pt-4">
+                                <a href="#rentals-list" data-page-nav="rentals-list" class="btn btn-secondary">キャンセル</a>
+                                <button type="button" class="btn btn-primary" onclick="alert('【確認ダイアログ】\n「この内容で貸出処理を実行しますか？」')">貸出実行</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 機器詳細 -->
+                <div class="lg:col-span-1">
+                    <div class="form-card">
+                        <h2 class="text-xl font-semibold mb-4">対象機器</h2>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">資産番号</p>
+                                <p class="text-lg font-semibold text-gray-900">PC-003</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">メーカー / OS</p>
+                                <p class="text-lg font-semibold text-gray-900">Apple / macOS</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">メモリ / 容量</p>
+                                <p class="text-lg font-semibold text-gray-900">16GB / 512GB</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">状態</p>
+                                <p class="text-lg font-semibold"><span class="badge badge-green">利用可能</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. 返却処理ページ -->
+        <div id="page-rentals-detail-rented" class="page">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">貸出詳細 (PC-001)</h1>
+             <div class="form-card max-w-3xl mx-auto">
+                <!-- 静的表示エリア -->
+                <div class="space-y-4 mb-8">
+                    <h2 class="text-xl font-semibold border-b pb-2">貸出情報</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">資産番号</p>
+                            <p class="text-lg font-semibold text-gray-900">PC-001</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">メーカー / OS</p>
+                            <p class="text-lg font-semibold text-gray-900">DELL / Windows 11</p>
+                        </div>
+                         <div>
+                            <p class="text-sm font-medium text-gray-500">社員氏名</p>
+                            <p class="text-lg font-semibold text-gray-900">鈴木一郎</p>
+                        </div>
+                         <div>
+                            <p class="text-sm font-medium text-gray-500">貸出日</p>
+                            <p class="text-lg font-semibold text-gray-900">2025-11-01</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">返却期限</p>
+                            <p class="text-lg font-semibold text-red-600">2025/11/06 (本日)</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">状態</p>
+                            <p class="text-lg font-semibold"><span class="badge badge-red">貸出中</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 備考編集フォーム -->
+                <form class="space-y-4">
+                    <div>
+                        <label class="form-label">備考 (更新)</label>
+                        <textarea class="form-input" rows="3">プロジェクトA</textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="alert('【確認ダイアログ】\n「備考を更新しますか？」')">備考を更新</button>
+                    </div>
+                </form>
+
+                <!-- アクションエリア -->
+                <div class="flex justify-between items-center pt-6 border-t mt-6">
+                    <button type="button" class="btn btn-danger" onclick="alert('【確認ダイアログ】\n「この貸出情報を削除しますか？」')">貸出情報削除</button>
+                    <div class="space-x-4">
+                        <a href="#rentals-list" data-page-nav="rentals-list" class="btn btn-secondary">一覧へ戻る</a>
+                        <button type="button" class="btn btn-primary" onclick="alert('【確認ダイアログ】\n「この機器を返却しますか？」')">返却処理を行う</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. 貸出履歴 (すべて) -->
+        <div id="page-rentals-history" class="page">
+            <div class="flex justify-between items-center mb-6 gap-4 flex-wrap">
+                <h1 class="text-3xl font-bold text-gray-900">貸出履歴 (すべて)</h1>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                    </div>
+                    <input type="search" placeholder="資産番号または氏名で検索" class="form-input-search">
+                </div>
+                <a href="#rentals-list" data-page-nav="rentals-list" class="btn btn-secondary">
+                    現在の貸出管理へ
+                </a>
+            </div>
+             <div class="form-card p-0 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead class="data-grid-header">
+                            <tr>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">資産番号</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">社員氏名</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">貸出日</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">返却日</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">状態</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-001</td>
+                                <td class="p-4 text-sm">鈴木一郎</td>
+                                <td class="p-4 text-sm">2025/11/01</td>
+                                <td class="p-4 text-sm">---</td>
+                                <td class="p-4 text-sm"><span class="badge badge-red">貸出中</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-005</td>
+                                <td class="p-4 text-sm">田中花子</td>
+                                <td class="p-4 text-sm">2025/10/15</td>
+                                <td class="p-4 text-sm">2025/10/31</td>
+                                <td class="p-4 text-sm"><span class="badge badge-green">返却済み</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">PC-002</td>
+                                <td class="p-4 text-sm">山田太郎</td>
+                                <td class="p-4 text-sm">2025/10/20</td>
+                                <td class="p-4 text-sm">2025/10/30</td>
+                                <td class="p-4 text-sm"><span class="badge badge-green">返却済み</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. ユーザー一覧 -->
+        <div id="page-users-list" class="page">
+            <div class="flex justify-between items-center mb-6 gap-4 flex-wrap">
+                <h1 class="text-3xl font-bold text-gray-900">ユーザー一覧</h1>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                    </div>
+                    <input type="search" placeholder="社員番号または氏名で検索" class="form-input-search">
+                </div>
+                <a href="#users-new" data-page-nav="users-new" class="btn btn-primary">
+                    新規登録
+                </a>
+            </div>
+             <div class="form-card p-0 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead class="data-grid-header">
+                            <tr>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">社員番号</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">氏名</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">所属部署</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">役職</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">権限</th>
+                                <th class="p-4 text-left text-sm font-semibold text-gray-600">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">S001</td>
+                                <td class="p-4 text-sm">鈴木一郎</td>
+                                <td class="p-4 text-sm">営業部</td>
+                                <td class="p-4 text-sm">マネージャー</td>
+                                <td class="p-4 text-sm"><span class="badge badge-gray">管理者</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#users-detail" data-page-nav="users-detail" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                            <tr class="data-grid-row">
+                                <td class="p-4 text-sm font-medium">S002</td>
+                                <td class="p-4 text-sm">山田太郎</td>
+                                <td class="p-4 text-sm">開発部</td>
+                                <td class="p-4 text-sm">一般</td>
+                                <td class="p-4 text-sm"><span class="badge badge-gray">一般</span></td>
+                                <td class="p-4 text-sm">
+                                    <a href="#users-detail" data-page-nav="users-detail" class="text-indigo-600 hover:text-indigo-800 font-medium">詳細</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. ユーザー新規登録 (★ 必須マーク変更) -->
+        <div id="page-users-new" class="page">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">ユーザー新規登録</h1>
+            <div class="form-card max-w-3xl mx-auto">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label class="form-label">社員番号 <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input type="text" class="form-input" placeholder="S003">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label class="form-label">氏名 <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input type="text" class="form-input" placeholder="田中 花子">
+                        </div>
+                        <div>
+                            <label class="form-label">氏名 (カナ)</label>
+                            <input type="text" class="form-input" placeholder="タナカ ハナコ">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">部署</label>
+                            <input type="text" class="form-input" placeholder="人事部">
+                        </div>
+                        <div>
+                            <label class="form-label">役職</label>
+                            <input type="text" class="form-input" placeholder="一般">
+                        </div>
+                    </div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">年齢</label>
+                            <input type="number" class="form-input" placeholder="30">
+                        </div>
+                        <div>
+                            <label class="form-label">性別 (1:男, 2:女, 9:他)</label>
+                            <input type="number" class="form-input" placeholder="2">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <!-- ★ 必須マーク変更 -->
+                            <label class="form-label">メールアドレス <span class="text-red-500 font-bold ml-1">*</span></label>
+                            <input type="email" class="form-input" placeholder="tanaka@example.com">
+                        </div>
+                        <div>
+                            <label class="form-label">電話番号</label>
+                            <input type="tel" class="form-input" placeholder="090-XXXX-XXXX">
+                        </div>
+                    </div>
+                    <div>
+                        <!-- ★ 必須マーク変更 -->
+                        <label class="form-label">権限 (account_level) <span class="text-red-500 font-bold ml-1">*</span></label>
+                        <div class="flex space-x-6">
+                            <div class="flex items-center">
+                                <input id="role-user" name="role" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300" checked>
+                                <label for="role-user" class="ml-2 block text-sm text-gray-800">一般 (FALSE)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="role-admin" name="role" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300">
+                                <label for="role-admin" class="ml-2 block text-sm text-gray-800">管理者 (TRUE)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-4 pt-4">
+                        <a href="#users-list" data-page-nav="users-list" class="btn btn-secondary">キャンセル</a>
+                        <button type="button" class="btn btn-primary" onclick="alert('【確認ダイアログ】\n「この内容で登録しますか？」')">登録</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 12. ユーザー詳細・編集 (★ 必須マーク変更) -->
+        <div id="page-users-detail" class="page">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">ユーザー詳細 (S001)</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 編集フォーム -->
+                <div class="lg:col-span-2">
+                    <div class="form-card">
+                        <form class="space-y-6">
+                            <!-- 静的表示 -->
+                            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <h3 class="text-lg font-semibold mb-3 text-gray-800">基本情報</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">社員番号</p>
+                                        <p class="text-lg font-semibold text-gray-900">S001</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">登録日</p>
+                                        <p class="text-lg font-semibold text-gray-900">2023/05/01</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">更新日</p>
+                                        <p class="text-lg font-semibold text-gray-900">2024/02/10</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 編集可能フォーム -->
+                            <h3 class="text-lg font-semibold text-gray-800 border-t pt-6">編集可能項目</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <!-- ★ 必須マーク変更 -->
+                                    <label class="form-label">氏名 <span class="text-red-500 font-bold ml-1">*</span></label>
+                                    <input type="text" class="form-input" value="鈴木一郎">
+                                </div>
+                                <div>
+                                    <label class="form-label">氏名 (カナ)</label>
+                                    <input type="text" class="form-input" value="スズキ イチロウ">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="form-label">部署</label>
+                                    <input type="text" class="form-input" value="営業部">
+                                </div>
+                                <div>
+                                    <label class="form-label">役職</label>
+                                    <input type="text" class="form-input" value="マネージャー">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <!-- ★ 必須マーク変更 -->
+                                    <label class="form-label">メールアドレス <span class="text-red-500 font-bold ml-1">*</span></label>
+                                    <input type="email" class="form-input" value="suzuki@example.com">
+                                </div>
+                                <div>
+                                    <label class="form-label">電話番号</label>
+                                    <input type="tel" class="form-input" value="090-1234-5678">
+                                </div>
+                            </div>
+                            <div>
+                                <!-- ★ 必須マーク変更 -->
+                                <label class="form-label">権限 (account_level) <span class="text-red-500 font-bold ml-1">*</span></label>
+                                <div class="flex space-x-6">
+                                    <div class="flex items-center">
+                                        <input id="role-user-edit" name="role-edit" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300">
+                                        <label for="role-user-edit" class="ml-2 block text-sm text-gray-800">一般 (FALSE)</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="role-admin-edit" name="role-edit" type="radio" class="h-4 w-4 text-indigo-600 border-gray-300" checked>
+                                        <label for="role-admin-edit" class="ml-2 block text-sm text-gray-800">管理者 (TRUE)</label>
+                                    </div>
+                                </div>
+                            </div>
+                             <div>
+                                <label class="form-label">退職日 (退職済みの場合は設定)</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="flex justify-between items-center pt-4">
+                                <button type="button" class="btn btn-danger" onclick="alert('【確認ダイアログ】\n「このユーザー(S001)を削除しますか？」')">削除</button>
+                                <div class="space-x-4">
+                                    <a href="#users-list" data-page-nav="users-list" class="btn btn-secondary">キャンセル</a>
+                                    <button type="button" class="btn btn-primary" onclick="alert('【確認ダイアログ】\n「この内容で更新しますか？」')">更新</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 貸出履歴 -->
+                <div class="lg:col-span-1">
+                     <div class="form-card">
+                        <h2 class="text-xl font-semibold mb-4">貸出履歴 (鈴木一郎)</h2>
+                        <ul class="space-y-3">
+                            <li class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                                <span class="font-medium">PC-001 (DELL XPS)</span>
+                                <p class="text-sm text-gray-600">2025/11/01 〜 <span class="badge badge-red">貸出中</span></p>
+                                <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-sm text-indigo-600 hover:text-indigo-800">詳細を見る</a>
+                            </li>
+                            <li class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                                <span class="font-medium">PRJ-001 (プロジェクター)</span>
+                                <p class="text-sm text-gray-600">2025/10/01 〜 2025/10/03 <span class="badge badge-green">返却済み</span></p>
+
+                                <a href="#rentals-detail-rented" data-page-nav="rentals-detail-rented" class="text-sm text-indigo-600 hover:text-indigo-800">詳細を見る</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const select = document.getElementById('page-select');
+            const pages = document.querySelectorAll('.page');
+            const publicHeader = document.getElementById('public-header');
+            const mainHeader = document.getElementById('main-header');
+            const navLinks = document.querySelectorAll('.nav-link[data-page-nav]');
+            const activeLinkClass = 'nav-link-active';
+            const inactiveLinkClass = 'nav-link';
+            const mainContentWrapper = document.querySelector('main'); 
+
+            function switchPage(pageId) {
+                // ページ表示切り替え
+                let foundPage = false;
+                pages.forEach(page => {
+                    let currentPageId = page.id.replace('page-', '');
+                    if (currentPageId === pageId) {
+                        page.classList.add('active');
+                        foundPage = true;
+                    } else {
+                        page.classList.remove('active');
+                    }
+                });
+
+                if (!foundPage) {
+                    if (pageId === 'rentals-detail') {
+                        pageId = 'rentals-detail-rented';
+                        document.getElementById('page-rentals-detail-rented').classList.add('active');
+                    } else {
+                         document.getElementById('page-home').classList.add('active');
+                         pageId = 'home';
+                    }
+                }
+
+                // ヘッダーとメインコンテンツのスタイル制御
+                if (pageId === 'home') {
+                    publicHeader.classList.remove('hidden');
+                    mainHeader.classList.add('hidden');
+                    mainContentWrapper.style.paddingTop = '0';
+                    mainContentWrapper.style.maxWidth = 'none';
+                    mainContentWrapper.style.paddingLeft = '0';
+                    mainContentWrapper.style.paddingRight = '0';
+                } else if (pageId === 'login') {
+                    publicHeader.classList.remove('hidden');
+                    mainHeader.classList.add('hidden');
+                    mainContentWrapper.style.paddingTop = '2rem'; 
+                    mainContentWrapper.style.maxWidth = '1280px';
+                    mainContentWrapper.style.paddingLeft = '1rem';
+                    mainContentWrapper.style.paddingRight = '1rem';
+                } else {
+                    publicHeader.classList.add('hidden');
+                    mainHeader.classList.remove('hidden');
+                    mainContentWrapper.style.paddingTop = '2rem'; 
+                    mainContentWrapper.style.maxWidth = '1280px';
+                    mainContentWrapper.style.paddingLeft = '1rem';
+                    mainContentWrapper.style.paddingRight = '1rem';
+                }
+
+                // ナビゲーションのアクティブ状態更新
+                navLinks.forEach(link => {
+                    if (link.dataset.PageNav === pageId) {
+                        link.classList.add(activeLinkClass);
+                        link.classList.remove(inactiveLinkClass);
+                    } else {
+                        link.classList.remove(activeLinkClass);
+                        link.classList.add(inactiveLinkClass);
+                    }
+                });
+                
+                // Selectの値を更新
+                select.value = pageId;
+                
+                window.scrollTo(0, 0);
+            }
+
+            // Select変更時の動作
+            select.addEventListener('change', (e) => {
+                switchPage(e.target.value);
+            });
+
+            // ナビゲーションリンククリック時の動作
+            document.querySelectorAll('a[data-page-nav]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = e.currentTarget.dataset.PageNav;
+                    switchPage(pageId);
+                });
+            });
+
+            // 初期表示（ホーム）
+            switchPage('home');
+        });
+    </script>
+
 </body>
 </html>
